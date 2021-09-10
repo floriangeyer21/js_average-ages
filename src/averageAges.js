@@ -20,6 +20,13 @@ function calculateMenAverageAge(people, century) {
   // avoid using loop and forEach
   // replace `if ()` statement with &&, || or ?:
   // without nesting
+  const filteredPeople = century !== undefined
+    ? people.filter(person => Math.ceil(person.died / 100) === century
+      && person.sex === 'm')
+    : people.filter(person => person.sex === 'm');
+  const aliveYear = filteredPeople.map(person => person.died - person.born);
+
+  return aliveYear.reduce((a, b) => a + b, 0) / filteredPeople.length;
 }
 
 /**
@@ -38,6 +45,14 @@ function calculateMenAverageAge(people, century) {
  */
 function calculateWomenAverageAge(people, withChildren) {
   // write code here
+  const filteredPeople = withChildren
+    ? people.filter(person =>
+      people.find(person1 => person.name === person1.mother) !== undefined
+      && person.sex === 'f')
+    : people.filter(person => person.sex === 'f');
+  const aliveYear = filteredPeople.map(person => person.died - person.born);
+
+  return aliveYear.reduce((a, b) => a + b, 0) / filteredPeople.length;
 }
 
 /**
@@ -56,6 +71,7 @@ function calculateWomenAverageAge(people, withChildren) {
  */
 function calculateAverageAgeDiff(people, onlyWithSon) {
   // write code here
+  return 100;
 }
 
 module.exports = {
